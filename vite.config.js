@@ -4,6 +4,9 @@ import react from "@vitejs/plugin-react";
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
+  preview: {
+    allowedHosts: [process.env.VITE_ALLOWED_HOSTS || 'localhost'], // Используем переменную окружения
+  },
   server: {
     port: process.env.PORT || 5173, // Фиксированный порт
     strictPort: true, // Если порт занят, не переключаться на другой
