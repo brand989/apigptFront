@@ -51,11 +51,15 @@ export const getChatInfo = async (chatId) => {
 // 🔄 Универсальная функция для запросов
 const request = async (endpoint, method = "GET", data = null) => {
   try {
+    const cookieDomain = process.env.VITE_COOKIE_DOMAIN || 'localhost'; // Используем переменную окружения для домена
     const options = {
       method,
       url: `${API_URL}${endpoint}`,
       data,
       withCredentials: true, // Передача cookie (очень важно)
+      headers: {
+        'Set-Cookie': `domain=${cookieDomain}`, // Пример передачи cookie с доменом
+      },
     };
 
     const response = await axios(options);
