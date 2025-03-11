@@ -15,6 +15,7 @@ const Login = ({ setAuthenticated }) => {
       const data = await login(username, password);
 
       console.log("🔑 Токен с сервера:", data.token);
+      console.log("Ответ от сервера:", data);
 
       if (data.error) {
         throw new Error(data.error || "Ошибка авторизации");
