@@ -10,6 +10,7 @@ export const getServerStatus = async () => {
 // ✅ Логин
 export const login = async (username, password) => {
   return request("auth/login", "POST", { username, password });
+  
 };
 
 // ✅ Логаут
