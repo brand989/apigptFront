@@ -57,8 +57,7 @@ const request = async (endpoint, method = "GET", data = null) => {
       method,
       url: `${API_URL}${endpoint}`,
       data,
-      withCredentials: true, 
-      credentials: 'include',// Передача cookie (очень важно)
+      withCredentials: true, // Передача cookie (очень важно)
     };
 
     const response = await axios(options);
