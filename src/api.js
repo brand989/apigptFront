@@ -61,7 +61,6 @@ const request = async (endpoint, method = "GET", data = null) => {
     };
 
     const response = await axios(options);
-    console.log("Ответ от сервера:", response);
 
     return response.data;
   } catch (error) {

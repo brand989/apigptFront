@@ -16,17 +16,16 @@ export const WebSocketProvider = ({ children, authenticated  }) => {
 
   useEffect(() => {
     if (socket && chatId) {
-      console.log("🔄 Попытка подписаться на чат:", chatId);
       
       if (socket.readyState === WebSocket.OPEN) {
           socket.send(JSON.stringify({ type: "subscribe", chatId }));
-          console.log("📡 Подписка отправлена:", chatId);
+
           setMessages([]); // Очищаем сообщения
       } else {
           console.warn("⏳ WebSocket ещё не подключен. Ожидаем...");
           
           socket.onopen = () => {
-              console.log("✅ WebSocket теперь открыт, подписываемся на чат:", chatId);
+
               socket.send(JSON.stringify({ type: "subscribe", chatId }));
               setMessages([]);
           };
@@ -47,7 +46,6 @@ export const WebSocketProvider = ({ children, authenticated  }) => {
           const ws = new WebSocket(wsUrl, ["User_" + userId]);
 
           ws.onopen = () => {
-            console.log("✅ WebSocket подключен");
 
             // Подписываемся на нужный чат
             ws.send(JSON.stringify({ type: "subscribe", chatId }));
@@ -56,7 +54,6 @@ export const WebSocketProvider = ({ children, authenticated  }) => {
 
             if (chatId) {
               ws.send(JSON.stringify({ type: "subscribe", chatId }));
-              console.log("📡 Подписка на чат:", chatId);
           }
 
           };
@@ -71,7 +68,6 @@ export const WebSocketProvider = ({ children, authenticated  }) => {
                 // Проверяем, что сообщение не дублируется по _id
                 const messageExists = prevMessages.some((msg) => msg._id === data.data._id);
                 if (messageExists) {
-                  console.log("❌ Это сообщение уже есть в списке");
                   return prevMessages; // Если сообщение уже есть, не добавляем его
                 }
           
@@ -99,16 +95,11 @@ export const WebSocketProvider = ({ children, authenticated  }) => {
       .catch((err) => console.error("❌ Ошибка при получении userId", err));
   }, [authenticated]);
 
-  useEffect(() => {
-    if (socket) {
-      console.log("✅ WebSocket обновлён в состоянии:", socket);
-    }
-  }, [socket]);
+
 
 
   // ✅ Функция отправки сообщений
   const sendMessage = (chatId, text) => {
-    console.log("📨 Попытка отправить сообщение...", socket);
     
     if (!socket) {
       console.error("⛔ WebSocket не подключен! Попробуйте позже.");
@@ -121,13 +112,11 @@ export const WebSocketProvider = ({ children, authenticated  }) => {
     }
     
     socket.send(JSON.stringify({ type: "send_message", chatId, text }));
-    console.log("✅ Сообщение отправлено:", { chatId, text });
   };
 
 
   const disconnect = () => {
     if (socket) {
-      console.log("🔌 Отключаем WebSocket...");
       socket.close();
       setSocket(null);
     }
