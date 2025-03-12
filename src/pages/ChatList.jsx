@@ -4,13 +4,16 @@ import { useNavigate } from "react-router-dom";
 import { FiEdit2 } from "react-icons/fi";
 
 
-const ChatList = ({ chats }) => {
+const ChatList = ({ chats, closeSidebar }) => {
 
 const navigate = useNavigate();
 
   return (
     <div className="chat-list-container">
-            <div className="chat-list-add-button" onClick={() => navigate("/")}>
+            <div className="chat-list-add-button" onClick={() => {
+              navigate("/");
+              closeSidebar(); 
+            }}>
             <FiEdit2 size={24} />
             </div>
         <h1 className="logo">Ваш Бот</h1>  
@@ -21,7 +24,7 @@ const navigate = useNavigate();
         ) : (
           chats.map((chat) => (
             <li key={chat._id} className="chat-list-item">
-              <Link to={`/chat/${chat._id}`} className="chat-list-link">
+              <Link to={`/chat/${chat._id}`} className="chat-list-link" onClick={closeSidebar}  >
                 {chat.name}
               </Link>
             </li>

@@ -12,6 +12,16 @@ import { checkAuth, getChats } from "./api";
 const App = () => {
   const [authenticated, setAuthenticated] = useState(false);
   const [chats, setChats] = useState([]);
+  const [sidebarVisible, setSidebarVisible] = useState(false);
+
+
+  const toggleSidebar = () => {
+    setSidebarVisible(!sidebarVisible);
+  };
+
+  const closeSidebar = () => {
+    setSidebarVisible(false);
+  };
 
   // Функция для добавления нового чата
   const addChat = (newChat) => {
@@ -45,10 +55,14 @@ const App = () => {
                 <Logout setAuthenticated={setAuthenticated} />
               </div>
 
+              <div className="burger-menu" onClick={toggleSidebar}>
+                ☰
+              </div>
+
               <div className="chat-layout">
-                <div className="chat-sidebar">
+                <div className={`chat-sidebar ${sidebarVisible ? 'visible' : ''}`}>
                
-                  <ChatList chats={chats}/> 
+                  <ChatList chats={chats} closeSidebar={closeSidebar}/> 
                 </div>
                 <div className="chat-main">
                   {<Routes>

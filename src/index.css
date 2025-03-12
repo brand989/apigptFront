@@ -504,3 +504,57 @@ chat-list::-webkit-scrollbar {
 .chat-send-button:hover {
   background-color: #bdbdbd;
 }
+
+.burger-menu {
+  display: none; /* По умолчанию скрыто */
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+
+@media (max-width: 768px) {
+
+
+  .chat-sidebar {
+    display: none; /* Скрываем боковое меню на мобильных устройствах */
+  }
+
+  .chat-sidebar.visible {
+    display: flex; /* показываем, когда добавляется класс 'visible' */
+    position: absolute;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    width: 200px; /* ширина бокового меню на мобильных устройствах */
+    height: 100%; /* весь экран по высоте */
+    background: #ffffff;
+    transition: transform 0.3s ease-out; /* анимация выдвигать боковое меню */
+    box-shadow: 2px 0 5px rgba(0,0,0,0.3);
+  }
+
+  .burger-menu {
+    display: flex; /* показываем только на мобильных устройствах */
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 20; /* выше чата */ /* Показываем кнопку бургерного меню */
+  }
+
+  .chat-layout {
+    flex-direction: column; /* Изменяем направление для корректного отображения */
+  }
+
+  .logout-container {
+    position: fixed;
+    top: 10px;
+    right: 50px; /* Двигаем кнопку, чтобы не пересекалась с бургерным меню */
+  }
+
+
+}
+
